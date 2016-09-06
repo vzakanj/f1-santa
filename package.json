@@ -1,0 +1,24 @@
+{
+    "name": "f1santa",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "html": "n-copy --source src --destination dist index.html",
+        "build": "webpack",
+        "start": "webpack-dev-server",
+
+        "prebuild": "npm run html",
+        "prestart": "npm run html"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "npm-build-tools": "^2.2.5",
+        "ts-loader": "^0.8.2",
+        "typescript": "^1.8.10",
+        "webpack": "^1.13.2",
+        "webpack-dev-server": "^1.15.1"
+    }
+}
