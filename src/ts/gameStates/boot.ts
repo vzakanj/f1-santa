@@ -1,10 +1,12 @@
 
-module Santa {
 
-    export class Boot extends Phaser.State {
+
+
+
+   export  class Boot extends Phaser.State {
 
         preload(): void {
-            this.load.image('logo', 'assets/mono.png');
+            this.load.image('logo', './assets/cat.png');
         }
 
         create(): void {
@@ -16,4 +18,5 @@ module Santa {
 
     }
 
-}
+
+

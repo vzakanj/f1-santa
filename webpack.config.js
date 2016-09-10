@@ -25,17 +25,17 @@ module.exports = {
     resolve: {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
         alias: {
-            'phaser': phaser,
             'pixi': pixi,
-            'p2': p2
+            'p2': p2,
+            'phaser': phaser
         }
     },
     module: {
         loaders: [
+            { test: /\.tsx?$/, loader: 'ts-loader' },
             { test: /pixi\.js/, loader: 'expose?PIXI' },
             { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
             { test: /p2\.js/, loader: 'expose?p2' },
-            { test: /\.tsx?$/, loader: 'ts-loader' }
         ]
     },
     watch: true,
