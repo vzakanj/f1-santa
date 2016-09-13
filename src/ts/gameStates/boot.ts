@@ -30,8 +30,9 @@ export class Boot extends Phaser.State {
             gameLogoAnimation.onComplete.add(function () {
                 
                 // Game logo fading animation
-                gameLogoAnimation.to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, true);
+                gameLogoAnimation.to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
                 gameLogoAnimation.onComplete.add(function () {
+                    gameLogo.destroy();
                     this.state.start('Preload');
                 }, this);
             }, this);
