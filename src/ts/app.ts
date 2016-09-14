@@ -7,14 +7,16 @@ import 'pixi';
 import 'p2';
 import 'phaser';
 
+import { Constants } from "./utilities/constants";
 import { Boot } from "./gameStates/boot";
 import { MainMenu } from "./gameStates/mainMenu";
 import { Preload } from "./gameStates/preload";
 
 
+
 class GameEngine extends Phaser.Game {
     constructor() {
-        super(800, 600, Phaser.AUTO, 'content', null);
+        super(Constants.gameBounds().x, Constants.gameBounds().y, Phaser.AUTO, 'content', null);
 
         this.state.add('Boot', Boot, false);
         this.state.add('Preload', Preload, false);
