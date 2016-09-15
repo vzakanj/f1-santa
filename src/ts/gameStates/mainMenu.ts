@@ -22,11 +22,8 @@ export class MainMenu extends BaseState {
         this.game.input.keyboard.onPressCallback =  () => {
             if(this.menuReady){
                 this.changeState('Game', false);   
+                this.game.input.keyboard.onPressCallback = null;
             }            
         }
-    }
-    
-    update():void {
-        
     }
 } 

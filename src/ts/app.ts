@@ -29,7 +29,8 @@ class GameEngine extends Phaser.Game {
         this.state.add('MainMenu', MainMenu, false);
         this.state.add('Game', Gameplay, false);
 
-        this.state.start('Boot', false, false, gameObjectFactory); 
+        // Skip intro  for now
+        this.state.start('Preload', false, false, gameObjectFactory); 
     }
 }
 

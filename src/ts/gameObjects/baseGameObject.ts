@@ -1,13 +1,17 @@
 
 
 export class BaseGameObject {
-    
+
     game: Phaser.Game;
     sprite: Phaser.Sprite;
-    
-    constructor(game: Phaser.Game, sprite: Phaser.Sprite){
+
+    constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
         this.game = game;
-        this.sprite = sprite;
+
+        if (sprite) {
+            this.sprite = sprite;
+            this.game.physics.arcade.enableBody(this.sprite);
+        }
     }
-    
+
 }

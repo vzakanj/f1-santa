@@ -14,5 +14,9 @@ export class Constants {
     static backgroundMovement() : Phaser.Point{
         return new Phaser.Point(0, -20);
     }
+    
+    static playerSpeed() : number{
+        return 200;
+    }
 
 }
