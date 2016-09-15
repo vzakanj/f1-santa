@@ -1,13 +1,15 @@
 
 import { Constants } from "../utilities/constants";
+import { GameObjectFactory } from "../utilities/gameObjectFactory";
+import { BaseState } from "./baseState";
 
-export class MainMenu extends Phaser.State {
+export class MainMenu extends BaseState {
 
     menuReady: boolean = false;
     background: Phaser.TileSprite = null;
 
     create(): void {
-        this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
+        this.background = this.gameObjectFactory.createBackground().tileSprite;
         
         var menuText = this.game.add.text(this.game.world.centerX, this.game.world.height - 200, "Press any key to start", Constants.mainMenuFontStyle());
 
@@ -16,8 +18,15 @@ export class MainMenu extends Phaser.State {
         backgroundAnimation.onComplete.add(function () {
             this.menuReady = true;
         }, this);
-      
-         
-
+        
+        this.game.input.keyboard.onPressCallback =  () => {
+            if(this.menuReady){
+                this.changeState('Game', false);   
+            }            
+        }
+    }
+    
+    update():void {
+        
     }
 } 

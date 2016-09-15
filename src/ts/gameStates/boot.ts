@@ -1,9 +1,10 @@
 
 
+import { BaseState } from "./baseState";
+import { GameObjectFactory } from "../utilities/gameObjectFactory";
 
 
-
-export class Boot extends Phaser.State {
+export class Boot extends BaseState {
 
     preload(): void {
         this.load.image('logo', './assets/mono-logo.png');
@@ -21,25 +22,25 @@ export class Boot extends Phaser.State {
 
         // Logo animation
         var monoLogoAnimation = this.game.add.tween(monoLogo).to({ alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, true);
-        monoLogoAnimation.onComplete.add(function () { 
-            
+        monoLogoAnimation.onComplete.add(function () {
+
             // Game logo animation, falling
             var gameLogo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'gamelogo');
             gameLogo.anchor.set(0.5);
             var gameLogoAnimation = this.game.add.tween(gameLogo).from({ y: -200 }, 2000, Phaser.Easing.Bounce.Out, true);
             gameLogoAnimation.onComplete.add(function () {
-                
+
                 // Game logo fading animation
                 gameLogoAnimation.to({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
                 gameLogoAnimation.onComplete.add(function () {
                     gameLogo.destroy();
-                    this.state.start('Preload');
+                    this.changeState('Preload');
                 }, this);
             }, this);
 
         }, this);
-        
-        
+
+
     }
 
     update(): void {
@@ -47,6 +48,7 @@ export class Boot extends Phaser.State {
     }
 
 }
+
 
 
 

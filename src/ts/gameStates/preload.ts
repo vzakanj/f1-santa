@@ -1,13 +1,13 @@
+import { BaseState } from "./baseState";
 
-
-export class Preload extends Phaser.State {
+export class Preload extends BaseState {
     
     preload(): void {
-        this.load.image('background', './assets/purple.png');
+        this.load.image("background", './assets/purple.png');
     }
     
     create(): void {
-        this.game.state.start('MainMenu');
+        this.changeState('MainMenu', false);
     }
     
 }

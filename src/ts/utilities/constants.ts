@@ -10,5 +10,9 @@ export class Constants {
     static gameBounds() : Phaser.Point{
         return new Phaser.Point(800,600);
     }
+    
+    static backgroundMovement() : Phaser.Point{
+        return new Phaser.Point(0, -20);
+    }
 
 }
