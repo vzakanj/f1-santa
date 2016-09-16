@@ -4,11 +4,13 @@ import { BaseState } from "./baseState";
 import { Background } from "../gameObjects/background";
 import { Player } from "../gameObjects/player";
 import { GameObjectFactory } from "../utilities/gameObjectFactory";
+import { BaseEnemy } from "../gameObjects/enemies/baseEnemy";
 
 export class Gameplay extends BaseState {
 
     background: Background;
     player: Player;
+    enemies: BaseEnemy[];
 
     create(): void {
 

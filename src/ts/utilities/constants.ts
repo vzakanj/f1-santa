@@ -18,5 +18,8 @@ export class Constants {
     static playerSpeed() : number{
         return 200;
     }
-
+    
+    static genericEnemySpeed(): number {
+        return Math.random() * 50 + 25;
+    }
 }

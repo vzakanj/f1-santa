@@ -6,6 +6,7 @@ export class Preload extends BaseState {
         this.load.path = "./assets/";
         this.load.image("background", 'purple.png');
         this.load.image("player", "player.png");
+        this.load.image("enemy", "enemy.png");
     }
     
     create(): void {
