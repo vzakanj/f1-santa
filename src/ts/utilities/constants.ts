@@ -12,14 +12,24 @@ export class Constants {
     }
     
     static backgroundMovement() : Phaser.Point{
-        return new Phaser.Point(0, -20);
+        return new Phaser.Point(0, 20);
     }
     
     static playerSpeed() : number{
         return 200;
     }
     
-    static genericEnemySpeed(): number {
-        return Math.random() * 50 + 25;
+    static genericEnemySettings(): { [id: string] : number } {
+        return { 
+            "speed" : Math.random() * 50 + 25 
+        };
+    }
+    
+    static kamikazeEnemySettings() : { [id: string] : any } {
+        return {
+            "speed" : Math.random() * 100 + 25,
+            "angleCorrection" : -Math.PI / 2,
+            "anchor" : new Phaser.Point(.5, .5)
+        };
     }
 }

@@ -2,6 +2,7 @@
 import { Background } from "../gameObjects/background";
 import { Player } from "../gameObjects/player";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
+import { KamikazeEnemy } from "../gameObjects/enemies/KamikazeEnemy";
 
 export class GameObjectFactory {
 
@@ -25,12 +26,17 @@ export class GameObjectFactory {
     }
 
     createPlayer(): Player {
-        var playerSprite = this.createSprite('player', this.game.world.centerX, this.game.height - 100, playerSprite.scale = new Phaser.Point(0.5, 0.5));
+        var playerSprite = this.createSprite('player', this.game.world.centerX, this.game.height - 100, new Phaser.Point(0.5, 0.5));
         return new Player(this.game, playerSprite);
     }
 
     createGenericMovingEnemy(): GenericMovingEnemy {
         var enemeySprite = this.createSprite('enemy', undefined, undefined, new Phaser.Point(0.5, 0.5));
-        return new GenericMovingEnemy(this.game, this.game.add.sprite(0, 0, 'enemy'));
+        return new GenericMovingEnemy(this.game, enemeySprite);
+    }
+    
+    createKamikazeEnemy(): KamikazeEnemy {
+        var enemeySprite = this.createSprite('enemy', undefined, undefined, new Phaser.Point(0.5, 0.5));
+        return new KamikazeEnemy(this.game, enemeySprite);
     }
 }

@@ -25,7 +25,7 @@ export abstract class BaseEnemy extends BaseGameObject {
             return;
         }
 
-        if (this.sprite.position.y + this.sprite.height > this.game.height) {
+        if (this.sprite.position.y > this.game.height + this.sprite.height) {
             this.active = false;
         }
     }

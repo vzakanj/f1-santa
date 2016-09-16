@@ -10,9 +10,10 @@ export class GenericMovingEnemy extends BaseEnemy {
     }
     
     resetEnemy(): void{
+        this.active = true;
         super.xStartPosition();
         super.yStartPosition();
-        this.sprite.body.velocity.y = -Constants.genericEnemySpeed();
+        this.sprite.body.velocity.y = Constants.genericEnemySettings()["speed"];
     }
   
     
