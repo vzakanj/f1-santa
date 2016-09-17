@@ -1,5 +1,5 @@
 import { BaseGameObject } from "../baseGameObject";
-import { Player } from "../Player";
+import { Player } from "../player";
 import { Constants } from "../../utilities/constants";
 
 export abstract class BaseEnemy extends BaseGameObject {
@@ -9,7 +9,17 @@ export abstract class BaseEnemy extends BaseGameObject {
         this.resetEnemy();
     }
 
-    abstract resetEnemy(): void;
+    resetEnemy() {
+        this.active = true;
+        this.sprite.renderable = true;
+        this.xStartPosition();
+        this.yStartPosition();
+    }
+    
+    public deactivateEnemy(): void {
+        this.active = false;
+        this.sprite.renderable = false;
+    }
 
     xStartPosition(): void {
         var halfWidth = this.sprite.width * .5;

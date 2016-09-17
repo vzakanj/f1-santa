@@ -15,10 +15,8 @@ export class KamikazeEnemy extends BaseEnemy {
     }
 
     resetEnemy(): void {
-        this.active = true;
+        super.resetEnemy();
         this.speed = Constants.kamikazeEnemySettings()["speed"];
-        super.xStartPosition();
-        super.yStartPosition();
     }
 
     update(player: Player) {

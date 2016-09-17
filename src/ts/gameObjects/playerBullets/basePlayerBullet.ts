@@ -12,7 +12,7 @@ export class BasePlayerBullet extends BaseGameObject {
     }
     
     
-    update(enemy: BaseEnemy): void{
+   public update(enemy: BaseEnemy): void{
         if(!this.active) return;
         
         if(this.sprite.position.y < 0 - this.sprite.height){

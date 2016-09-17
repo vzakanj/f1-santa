@@ -35,7 +35,13 @@ export class Constants {
 
     static regularPlayerBullet(): { [id: string]: any } {
         return {
-            "velocity": new Phaser.Point(0, -200)
+            "velocity": new Phaser.Point(0, -500)
+        }
+    }
+    
+    static bulletCooldowns() : { [id: string] : number }{
+        return {
+            'regularPlayerBullet' : 0.2
         }
     }
 }

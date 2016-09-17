@@ -7,8 +7,8 @@ import { GameObjectFactory } from "../utilities/gameObjectFactory";
 import { BaseEnemy } from "../gameObjects/enemies/baseEnemy";
 import { ExtendedArray, Predicate } from "../utilities/extendedArray";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
-import { KamikazeEnemy } from "../gameObjects/enemies/KamikazeEnemy";
-import { BasePlayerBullet } from "../gameObjects/playerBullets/BasePlayerBullet";
+import { KamikazeEnemy } from "../gameObjects/enemies/kamikazeEnemy";
+import { BasePlayerBullet } from "../gameObjects/playerBullets/basePlayerBullet";
 import { RegularPlayerBullet } from "../gameObjects/playerBullets/regularPlayerBullet";
 
 
@@ -20,6 +20,9 @@ export class Gameplay extends BaseState {
     player: Player;
     enemies: ExtendedArray<BaseEnemy>;
     playerBullets: ExtendedArray<BasePlayerBullet>;
+    cooldowns = {
+        'regularPlayerBullet': 0
+    };
 
     create(): void {
 
@@ -33,7 +36,7 @@ export class Gameplay extends BaseState {
         // Enemies
         this.enemies = new ExtendedArray<BaseEnemy>();
         this.enemySpawner();
-        
+
         // Bullets
         this.playerBullets = new ExtendedArray<BasePlayerBullet>();
     }
@@ -64,13 +67,27 @@ export class Gameplay extends BaseState {
 
         }, this);
     }
-    
-    playerBulletSpawner() : void {
-        
-        if(this.player.isKeyDown('shoot')){
-            this.playerBullets.push(this.gameObjectFactory.createRegularPlayerBullet(this.player.x, this.player.y));
+
+    playerBulletSpawner(): void {
+
+        var shootDown = this.player.isKeyDown('shoot');
+
+        // Cooldowns
+        this.cooldowns.regularPlayerBullet -= this.game.time.physicsElapsed;
+
+        // RegularPlayerBullet
+        if (shootDown && this.cooldowns.regularPlayerBullet < 0) {
+            console.log(this.playerBullets.length);
+            this.cooldowns.regularPlayerBullet = Constants.bulletCooldowns()['regularPlayerBullet'];
+            var bp = new Phaser.Point(this.player.x, this.player.y);
+            var bullet = this.playerBullets.firstOrDefault(x => !x.active && x instanceof RegularPlayerBullet);
+            if (bullet == null) {
+                this.playerBullets.push(this.gameObjectFactory.createRegularPlayerBullet(bp.x, bp.y));
+            } else {
+                bullet.spawnBullet(bp);
+            }
         }
-        
+
     }
 
     update(): void {
@@ -78,10 +95,20 @@ export class Gameplay extends BaseState {
 
         for (let enemy of this.enemies) {
             enemy.update(this.player);
+            this.game.physics.arcade.collide(this.player.sprite, enemy.sprite, this.playerEnemyCollision, null, this);
+
+            for (let playerBullet of this.playerBullets) {
+                playerBullet.update(enemy);
+            }
         }
-        
-         this.playerBulletSpawner();
-        
-        
+
+
+
+        this.playerBulletSpawner();
+    }
+
+
+    private playerEnemyCollision(playerSprite: Phaser.Sprite, enemySprite: Phaser.Sprite): void {
+
     }
 }

@@ -12,6 +12,7 @@ export class BaseGameObject {
         if (sprite) {
             this.sprite = sprite;
             this.game.physics.arcade.enableBody(this.sprite);
+            this.sprite['object'] = this;
         }
     }
 

@@ -2,9 +2,8 @@
 import { Background } from "../gameObjects/background";
 import { Player } from "../gameObjects/player";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
-import { KamikazeEnemy } from "../gameObjects/enemies/KamikazeEnemy";
-
-import { RegularPlayerBullet } from "../gameObjects/playerbullets/RegularPlayerBullet";
+import { KamikazeEnemy } from "../gameObjects/enemies/kamikazeEnemy";
+import { RegularPlayerBullet } from "../gameObjects/playerBullets/regularPlayerBullet";
 
 
 export class GameObjectFactory {
