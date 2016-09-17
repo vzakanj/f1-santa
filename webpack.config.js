@@ -1,6 +1,5 @@
 var path = require('path');
 
-
 var phaserModule = path.join(__dirname, '/node_modules/phaser/');
 var phaser = path.join(phaserModule, 'build/custom/phaser-split.js');
 var pixi = path.join(phaserModule, 'build/custom/pixi.js');
@@ -19,7 +18,8 @@ module.exports = {
         alias: {
             'pixi': pixi,
             'p2': p2,
-            'phaser': phaser
+            'phaser': phaser,
+            'assets': path.join(__dirname, 'assets')
         }
     },
     module: {
