@@ -1,5 +1,5 @@
-var monoLogoImg = require<string>('assets/mono-logo.png');
-var catImg = require<string>('assets/cat.png');
+var monoLogoImg = require('assets/mono-logo.png');
+var catImg = require('assets/cat.png');
 
 import { BaseState } from "./baseState";
 import { GameObjectFactory } from "../utilities/gameObjectFactory";

@@ -1,7 +1,7 @@
 /// <reference path="../../node_modules/phaser/typescript/phaser.d.ts" />
 
 // require index in base app file so it gets emitted to dist using webpack file loader
-require<string>('../index.html');
+require('../index.html');
 
 
 

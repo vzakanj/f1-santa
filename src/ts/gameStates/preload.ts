@@ -1,6 +1,6 @@
-var purpleImg = require<string>('assets/purple.png');
-var playerImg = require<string>('assets/player.png');
-var enemyImg = require<string>('assets/enemy.png');
+var purpleImg = require('assets/purple.png');
+var playerImg = require('assets/player.png');
+var enemyImg = require('assets/enemy.png');
 
 import { BaseState } from "./baseState";
 
