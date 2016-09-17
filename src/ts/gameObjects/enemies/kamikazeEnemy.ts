@@ -22,6 +22,10 @@ export class KamikazeEnemy extends BaseEnemy {
     }
 
     update(player: Player) {
+        if(!this.active){
+            return;
+        }
+        super.update(player);
         this.sprite.body.rotation = MathHelper.toDeg(this.game.physics.arcade.moveToObject(this.sprite, player.sprite, this.speed) + this.angleCorrection);
     }
 }

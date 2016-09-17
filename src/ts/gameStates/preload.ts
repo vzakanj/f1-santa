@@ -7,6 +7,7 @@ export class Preload extends BaseState {
         this.load.image("background", 'purple.png');
         this.load.image("player", "player.png");
         this.load.image("enemy", "enemy.png");
+        this.load.image("regularPlayerBullet", "regBullet.png");
     }
     
     create(): void {

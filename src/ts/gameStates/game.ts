@@ -8,6 +8,8 @@ import { BaseEnemy } from "../gameObjects/enemies/baseEnemy";
 import { ExtendedArray, Predicate } from "../utilities/extendedArray";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
 import { KamikazeEnemy } from "../gameObjects/enemies/KamikazeEnemy";
+import { BasePlayerBullet } from "../gameObjects/playerBullets/BasePlayerBullet";
+import { RegularPlayerBullet } from "../gameObjects/playerBullets/regularPlayerBullet";
 
 
 
@@ -17,6 +19,7 @@ export class Gameplay extends BaseState {
     background: Background;
     player: Player;
     enemies: ExtendedArray<BaseEnemy>;
+    playerBullets: ExtendedArray<BasePlayerBullet>;
 
     create(): void {
 
@@ -27,16 +30,20 @@ export class Gameplay extends BaseState {
         // Player
         this.player = this.gameObjectFactory.createPlayer();
 
+        // Enemies
         this.enemies = new ExtendedArray<BaseEnemy>();
         this.enemySpawner();
+        
+        // Bullets
+        this.playerBullets = new ExtendedArray<BasePlayerBullet>();
     }
 
     enemySpawner(): void {
-        
+
         // Generic enemy spawner
         this.game.time.events.loop(2000, () => {
             var spawnCount = 3;
-            var toSpawn = this.enemies.takeWhere(spawnCount,x => !x.active &&  x instanceof GenericMovingEnemy);
+            var toSpawn = this.enemies.takeWhere(spawnCount, x => !x.active && x instanceof GenericMovingEnemy);
             for (let e of toSpawn) {
                 e.resetEnemy();
             }
@@ -44,25 +51,25 @@ export class Gameplay extends BaseState {
                 this.enemies.push(this.gameObjectFactory.createGenericMovingEnemy());
             }
         }, this);
-        
+
         // Kamikaze enemy spawner 
         this.game.time.events.loop(3000, () => {
-            
+
             var toSpawn = this.enemies.firstOrDefault(x => !x.active && x instanceof KamikazeEnemy);
-            if(toSpawn == null){
+            if (toSpawn == null) {
                 this.enemies.push(this.gameObjectFactory.createKamikazeEnemy());
-            }else{
+            } else {
                 toSpawn.resetEnemy();
             }
-            
+
         }, this);
     }
 
     update(): void {
         this.player.update();
 
-        for (var i = this.enemies.length - 1; i >= 0; i--) {
-            this.enemies[i].update(this.player);
+        for (let enemy of this.enemies) {
+            enemy.update(this.player);
         }
     }
 }

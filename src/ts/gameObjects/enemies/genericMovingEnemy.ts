@@ -15,6 +15,5 @@ export class GenericMovingEnemy extends BaseEnemy {
         super.yStartPosition();
         this.sprite.body.velocity.y = Constants.genericEnemySettings()["speed"];
     }
-  
-    
+
 }

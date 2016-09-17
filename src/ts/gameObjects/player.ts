@@ -16,16 +16,13 @@ export class Player extends BaseGameObject {
             'up': this.addKeys(Phaser.KeyCode.UP, Phaser.KeyCode.W),
             'down': this.addKeys(Phaser.KeyCode.DOWN, Phaser.KeyCode.S),
             'left': this.addKeys(Phaser.KeyCode.LEFT, Phaser.KeyCode.A),
-            'right': this.addKeys(Phaser.KeyCode.RIGHT, Phaser.KeyCode.D)
+            'right': this.addKeys(Phaser.KeyCode.RIGHT, Phaser.KeyCode.D),
+            'shoot': this.addKeys(Phaser.KeyCode.SPACEBAR)
         };
         this.sprite.body.collideWorldBounds = true;
     }
 
-    update(): void {
-        this.playerMovement();
-    }
-
-    addKeys(...keys: number[]): Phaser.Key[] {
+    private addKeys(...keys: number[]): Phaser.Key[] {
         var keyCodes: Phaser.Key[] = [];
         keys.forEach((key) => {
             keyCodes.push(this.game.input.keyboard.addKey(key));
@@ -34,12 +31,12 @@ export class Player extends BaseGameObject {
         return keyCodes;
     }
 
-    playerMovement(): void {
+    private playerMovement(): void {
         if (this.isKeyDown('up')) {
             this.sprite.body.velocity.y = -this.speed;
         } else if (this.isKeyDown('down')) {
             this.sprite.body.velocity.y = this.speed;
-        }else{
+        } else {
             this.sprite.body.velocity.y = 0;
         }
 
@@ -47,19 +44,29 @@ export class Player extends BaseGameObject {
             this.sprite.body.velocity.x = this.speed;
         } else if (this.isKeyDown('left')) {
             this.sprite.body.velocity.x = -this.speed;
-        }else{
+        } else {
             this.sprite.body.velocity.x = 0;
         }
 
     }
+    
+    public update(): void {
+        this.playerMovement();
+    }
+    
+    public bindKey(key: string, ...keys : number[]) : void{
+        for(var k of keys){
+            this.keys[key].push(this.game.input.keyboard.addKey(k));
+        }
+    }
 
-    isKeyDown(key: string): boolean {
+    public isKeyDown(key: string): boolean {
         return this.keys[key].some((key: Phaser.Key) => {
             return key.isDown;
         });
     }
 
-    areKeysUp(key: string): boolean {
+    public areKeysUp(key: string): boolean {
         return this.keys[key].every((key: Phaser.Key) => {
             return key.isUp;
         });
