@@ -15,4 +15,28 @@ export class BaseGameObject {
         }
     }
 
+
+    public get x(): number {
+        if (this.sprite) {
+            return this.sprite.position.x;
+        }
+        return 0;
+    }
+
+
+
+    public get y(): number {
+        if (this.sprite) {
+            return this.sprite.position.y;
+        }
+        return 0;
+    }
+
+    public get position(): Phaser.Point {
+        if (this.sprite) {
+            return this.sprite.position;
+        }
+        return new Phaser.Point(0, 0);
+    }
+
 }

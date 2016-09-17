@@ -64,6 +64,14 @@ export class Gameplay extends BaseState {
 
         }, this);
     }
+    
+    playerBulletSpawner() : void {
+        
+        if(this.player.isKeyDown('shoot')){
+            this.playerBullets.push(this.gameObjectFactory.createRegularPlayerBullet(this.player.x, this.player.y));
+        }
+        
+    }
 
     update(): void {
         this.player.update();
@@ -71,5 +79,9 @@ export class Gameplay extends BaseState {
         for (let enemy of this.enemies) {
             enemy.update(this.player);
         }
+        
+         this.playerBulletSpawner();
+        
+        
     }
 }
