@@ -1,12 +1,16 @@
+var purpleImg = require<string>('../../../assets/purple.png');
+var playerImg = require<string>('../../../assets/player.png');
+var enemyImg = require<string>('../../../assets/enemy.png');
+
 import { BaseState } from "./baseState";
 
 export class Preload extends BaseState {
     
     preload(): void {
-        this.load.path = "./assets/";
-        this.load.image("background", 'purple.png');
-        this.load.image("player", "player.png");
-        this.load.image("enemy", "enemy.png");
+        // this.load.path = "./assets/";
+        this.load.image("background", purpleImg);
+        this.load.image("player", playerImg);
+        this.load.image("enemy", enemyImg);
     }
     
     create(): void {

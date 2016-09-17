@@ -1,4 +1,5 @@
-
+var monoLogoImg = require<string>('../../../assets/mono-logo.png');
+var catImg = require<string>('../../../assets/cat.png');
 
 import { BaseState } from "./baseState";
 import { GameObjectFactory } from "../utilities/gameObjectFactory";
@@ -7,8 +8,8 @@ import { GameObjectFactory } from "../utilities/gameObjectFactory";
 export class Boot extends BaseState {
 
     preload(): void {
-        this.load.image('logo', './assets/mono-logo.png');
-        this.load.image('gamelogo', './assets/cat.png');
+        this.load.image('logo', monoLogoImg);
+        this.load.image('gamelogo', catImg);
     }
 
     create(): void {

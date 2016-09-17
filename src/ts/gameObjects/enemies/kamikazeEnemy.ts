@@ -1,8 +1,8 @@
 import { BaseGameObject } from "../baseGameObject";
-import { Player } from "../Player";
+import { Player } from "../player";
 import { BaseEnemy } from "./baseEnemy";
 import { Constants } from "../../utilities/constants";
-import { MathHelper } from "../../utilities/mathhelper";
+import { MathHelper } from "../../utilities/mathHelper";
 
 export class KamikazeEnemy extends BaseEnemy {
 

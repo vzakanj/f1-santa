@@ -7,7 +7,7 @@ import { GameObjectFactory } from "../utilities/gameObjectFactory";
 import { BaseEnemy } from "../gameObjects/enemies/baseEnemy";
 import { ExtendedArray, Predicate } from "../utilities/extendedArray";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
-import { KamikazeEnemy } from "../gameObjects/enemies/KamikazeEnemy";
+import { KamikazeEnemy } from "../gameObjects/enemies/kamikazeEnemy";
 
 
 

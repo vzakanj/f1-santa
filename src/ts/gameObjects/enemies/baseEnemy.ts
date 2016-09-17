@@ -1,5 +1,5 @@
 import { BaseGameObject } from "../baseGameObject";
-import { Player } from "../Player";
+import { Player } from "../player";
 import { Constants } from "../../utilities/constants";
 
 export abstract class BaseEnemy extends BaseGameObject {

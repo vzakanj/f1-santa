@@ -1,5 +1,5 @@
 import { BaseGameObject } from "../baseGameObject";
-import { Player } from "../Player";
+import { Player } from "../player";
 import { BaseEnemy } from "./baseEnemy";
 import { Constants } from "../../utilities/constants";
 

@@ -2,7 +2,7 @@
 import { Background } from "../gameObjects/background";
 import { Player } from "../gameObjects/player";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
-import { KamikazeEnemy } from "../gameObjects/enemies/KamikazeEnemy";
+import { KamikazeEnemy } from "../gameObjects/enemies/kamikazeEnemy";
 
 export class GameObjectFactory {
 
