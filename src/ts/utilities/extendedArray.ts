@@ -8,7 +8,7 @@ export class ExtendedArray<T> extends Array<T> {
 
     first(predicate: Predicate<T>): T {
         var obj = this.firstOrDefault(predicate);
-        if(obj == null){
+        if (obj == null) {
             throw new Error("Unable to find element based on predicate.");
         }
         return obj;
@@ -45,9 +45,11 @@ export class ExtendedArray<T> extends Array<T> {
     takeWhere(amount: number, predicate: Predicate<T>): ExtendedArray<T> {
         var r = new ExtendedArray<T>();
         var count = this.length > amount ? amount : this.length;
-        for (var i = 0; i < count; i++) {
-            if (predicate(this[i])) {
+        for(var i in this){
+            if(predicate(this[i]) && r.length < count){
                 r.push(this[i]);
+            }else if(r.length > count){
+                return r;                
             }
         }
         return r;

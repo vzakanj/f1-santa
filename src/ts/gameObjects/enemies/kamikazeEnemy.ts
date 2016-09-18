@@ -10,18 +10,20 @@ export class KamikazeEnemy extends BaseEnemy {
     angleCorrection: number;
     constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
         super(game, sprite);
-        this.sprite.anchor = Constants.kamikazeEnemySettings()["anchor"];
-        this.angleCorrection = Constants.kamikazeEnemySettings()["angleCorrection"];
+        this.sprite.anchor = Constants.kamikazeEnemySettings["anchor"];
+        this.angleCorrection = Constants.kamikazeEnemySettings["angleCorrection"];
     }
 
     resetEnemy(): void {
-        this.active = true;
-        this.speed = Constants.kamikazeEnemySettings()["speed"];
-        super.xStartPosition();
-        super.yStartPosition();
+        super.resetEnemy();
+        this.speed = Constants.kamikazeEnemySettings["speed"];
     }
 
     update(player: Player) {
+        if(!this.active){
+            return;
+        }
+        super.update(player);
         this.sprite.body.rotation = MathHelper.toDeg(this.game.physics.arcade.moveToObject(this.sprite, player.sprite, this.speed) + this.angleCorrection);
     }
 }

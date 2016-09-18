@@ -11,7 +11,7 @@ export class MainMenu extends BaseState {
     create(): void {
         this.background = this.gameObjectFactory.createBackground().tileSprite;
         
-        var menuText = this.game.add.text(this.game.world.centerX, this.game.world.height - 200, "Press any key to start", Constants.mainMenuFontStyle());
+        var menuText = this.game.add.text(this.game.world.centerX, this.game.world.height - 200, "Press any key to start", Constants.mainMenuFontStyle);
 
         var textAnimation = this.game.add.tween(menuText).from({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
         var backgroundAnimation = this.game.add.tween(this.background).from({ alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);

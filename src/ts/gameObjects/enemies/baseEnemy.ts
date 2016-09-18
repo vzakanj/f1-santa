@@ -9,11 +9,21 @@ export abstract class BaseEnemy extends BaseGameObject {
         this.resetEnemy();
     }
 
-    abstract resetEnemy(): void;
+    resetEnemy() {
+        this.active = true;
+        this.sprite.renderable = true;
+        this.xStartPosition();
+        this.yStartPosition();
+    }
+    
+    public deactivateEnemy(): void {
+        this.active = false;
+        this.sprite.renderable = false;
+    }
 
     xStartPosition(): void {
         var halfWidth = this.sprite.width * .5;
-        this.sprite.position.x = (Math.random() * Constants.gameBounds().x - halfWidth) + halfWidth;
+        this.sprite.position.x = (Math.random() * Constants.gameBounds.x - halfWidth) + halfWidth;
     }
 
     yStartPosition(): void{
