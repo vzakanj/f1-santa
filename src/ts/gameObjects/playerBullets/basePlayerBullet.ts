@@ -23,5 +23,12 @@ export class BasePlayerBullet extends BaseGameObject {
     spawnBullet(pos: Phaser.Point){
         this.active = true;
         this.sprite.position = pos;
+        this.sprite.renderable = true;
+    }
+    
+    deactivateBullet(): void {
+        this.active = false;
+        this.sprite.body.velocity = new Phaser.Point(0,0);
+        this.sprite.renderable = false;
     }
 }

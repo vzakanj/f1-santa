@@ -11,7 +11,7 @@ export class Player extends BaseGameObject {
 
     constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
         super(game, sprite);
-        this.speed = Constants.playerSpeed();
+        this.speed = Constants.playerSpeed;
         this.keys = {
             'up': this.addKeys(Phaser.KeyCode.UP, Phaser.KeyCode.W),
             'down': this.addKeys(Phaser.KeyCode.DOWN, Phaser.KeyCode.S),

@@ -13,7 +13,7 @@ export class RegularPlayerBullet extends BasePlayerBullet {
     
     spawnBullet(pos: Phaser.Point){
         super.spawnBullet(pos);
-        this.sprite.body.velocity = Constants.regularPlayerBullet()["velocity"];
+        this.sprite.body.velocity.y = Constants.regularPlayerBullet["velocityY"];
     }
     
     update(enemy:BaseEnemy): void{

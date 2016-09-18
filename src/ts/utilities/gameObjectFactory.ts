@@ -3,6 +3,7 @@ import { Background } from "../gameObjects/background";
 import { Player } from "../gameObjects/player";
 import { GenericMovingEnemy } from "../gameObjects/enemies/genericMovingEnemy";
 import { KamikazeEnemy } from "../gameObjects/enemies/kamikazeEnemy";
+import { WobbleEnemy } from "../gameObjects/enemies/wobbleEnemy";
 import { RegularPlayerBullet } from "../gameObjects/playerBullets/regularPlayerBullet";
 
 
@@ -42,6 +43,11 @@ export class GameObjectFactory {
     public createKamikazeEnemy(): KamikazeEnemy {
         var enemeySprite = this.createSprite('enemy', undefined, undefined, this.defaultGameObjectsScale);
         return new KamikazeEnemy(this.game, enemeySprite);
+    }
+    
+     public createWobbleEnemy(): WobbleEnemy {
+        var enemeySprite = this.createSprite('enemy', undefined, undefined, this.defaultGameObjectsScale);
+        return new WobbleEnemy(this.game, enemeySprite);
     }
     
     public createRegularPlayerBullet(x: number, y: number): RegularPlayerBullet{

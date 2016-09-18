@@ -4,19 +4,20 @@ import { BaseEnemy } from "./baseEnemy";
 import { Constants } from "../../utilities/constants";
 import { MathHelper } from "../../utilities/mathhelper";
 
-export class KamikazeEnemy extends BaseEnemy {
+export class WobbleEnemy extends BaseEnemy {
 
-    speed: number;
-    angleCorrection: number;
+    initialPosition: { x: number, y: number }
     constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
         super(game, sprite);
-        this.sprite.anchor = Constants.kamikazeEnemySettings["anchor"];
-        this.angleCorrection = Constants.kamikazeEnemySettings["angleCorrection"];
     }
 
     resetEnemy(): void {
         super.resetEnemy();
-        this.speed = Constants.kamikazeEnemySettings["speed"];
+        this.sprite.body.velocity.y = Constants.wobbleEnemySettings["speed"];
+        this.initialPosition = {
+            x: this.sprite.position.x,
+            y: this.sprite.position.y
+        }
     }
 
     update(player: Player) {
@@ -24,6 +25,8 @@ export class KamikazeEnemy extends BaseEnemy {
             return;
         }
         super.update(player);
-        this.sprite.body.rotation = MathHelper.toDeg(this.game.physics.arcade.moveToObject(this.sprite, player.sprite, this.speed) + this.angleCorrection);
+        var amount = Math.sin(this.sprite.position.y / 50) * 50;
+        this.sprite.position.x = this.initialPosition.x + amount;
+        
     }
 }

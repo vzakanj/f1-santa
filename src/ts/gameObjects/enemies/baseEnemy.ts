@@ -23,7 +23,7 @@ export abstract class BaseEnemy extends BaseGameObject {
 
     xStartPosition(): void {
         var halfWidth = this.sprite.width * .5;
-        this.sprite.position.x = (Math.random() * Constants.gameBounds().x - halfWidth) + halfWidth;
+        this.sprite.position.x = (Math.random() * Constants.gameBounds.x - halfWidth) + halfWidth;
     }
 
     yStartPosition(): void{
