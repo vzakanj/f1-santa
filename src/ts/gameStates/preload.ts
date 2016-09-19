@@ -1,7 +1,7 @@
 var purpleImg = require('assets/purple.png');
 var playerImg = require('assets/player.png');
 var enemyImg = require('assets/enemy.png');
-var regularPlayerBulletImg = require('assets/regularPlayerBullet.png');
+var regularPlayerBulletImg = require('assets/regBullet.png');
 
 import { BaseState } from "./baseState";
 

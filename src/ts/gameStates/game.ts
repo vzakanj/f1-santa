@@ -112,12 +112,14 @@ export class Gameplay extends BaseState {
         this.player.update();
 
         for (let enemy of this.enemies) {
+            if(!enemy.active) continue;
             enemy.update(this.player);
-            this.game.physics.arcade.collide(this.player.sprite, enemy.sprite, this.playerEnemyCollision, null, this);
+            this.game.physics.arcade.overlap(this.player.sprite, enemy.sprite, this.playerEnemyCollision, null, this);
 
             for (let playerBullet of this.playerBullets) {
+                if(!playerBullet.active) continue;
                 playerBullet.update(enemy);
-                this.game.physics.arcade.collide(enemy.sprite, playerBullet.sprite, this.enemyBulletCollision, null, this);
+                this.game.physics.arcade.overlap(enemy.sprite, playerBullet.sprite, this.enemyBulletCollision, null, this);
             }
         }
 
@@ -132,7 +134,12 @@ export class Gameplay extends BaseState {
     private enemyBulletCollision(enemySprite: Phaser.Sprite, bulletSprite: Phaser.Sprite): void {
         var enemy: BaseEnemy = enemySprite['object'];
         var bullet: BasePlayerBullet = bulletSprite['object'];
-        enemy.deactivateEnemy();
+        enemy.health -= bullet.damage;
+        if (enemy.health <= 0) {
+            enemy.deactivateEnemy();
+        } else {
+            enemy.hit();
+        }
         bullet.deactivateBullet();
     }
 }

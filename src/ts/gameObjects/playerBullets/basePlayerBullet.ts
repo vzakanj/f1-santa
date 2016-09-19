@@ -6,9 +6,11 @@ import { Constants } from "../../utilities/constants";
 
 export class BasePlayerBullet extends BaseGameObject {
     
+    damage: number;
     
     constructor(game: Phaser.Game, sprite: Phaser.Sprite){
         super(game, sprite);
+        this.damage = 10;
     }
     
     
@@ -23,7 +25,7 @@ export class BasePlayerBullet extends BaseGameObject {
     spawnBullet(pos: Phaser.Point){
         this.active = true;
         this.sprite.position = pos;
-        this.sprite.renderable = true;
+        this.sprite.renderable = true;      
     }
     
     deactivateBullet(): void {
