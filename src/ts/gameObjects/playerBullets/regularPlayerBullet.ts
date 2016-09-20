@@ -1,7 +1,7 @@
 
-import { BasePlayerBullet } from "./baseplayerbullet";
+import { BasePlayerBullet } from "./basePlayerBullet";
 import { Constants } from "../../utilities/constants";
-import { BaseEnemy } from "../enemies/baseenemy";
+import { BaseEnemy } from "../enemies/baseEnemy";
 
 
 export class RegularPlayerBullet extends BasePlayerBullet {

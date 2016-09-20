@@ -2,7 +2,7 @@ import { BaseGameObject } from "../baseGameObject";
 import { Player } from "../Player";
 import { BaseEnemy } from "./baseEnemy";
 import { Constants } from "../../utilities/constants";
-import { MathHelper } from "../../utilities/mathhelper";
+import { MathHelper } from "../../utilities/mathHelper";
 
 export class WobbleEnemy extends BaseEnemy {
 
