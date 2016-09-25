@@ -1,28 +1,28 @@
 {
-  "name": "f1santa",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "clean": "rm -rf dist/*",
-    "prebuild": "npm run clean",
-    "build": "webpack --config webpack.production-config.js",
-    "start": "webpack-dev-server --config webpack.dev-config.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "expose-loader": "^0.7.1",
-    "file-loader": "^0.9.0",
-    "merge": "^1.2.0",
-    "shelljs": "^0.7.4",
-    "ts-loader": "^0.8.2",
-    "typescript": "^1.8.10",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.15.1"
-  },
-  "dependencies": {
-    "phaser": "^2.6.2"
-  }
+    "name": "f1santa",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "clean": "rm -rf dist/*",
+        "prebuild": "npm run clean",
+        "build": "webpack --config webpack.production-config.js",
+        "start": "webpack-dev-server --config webpack.dev-config.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "expose-loader": "^0.7.1",
+        "file-loader": "^0.9.0",
+        "merge": "^1.2.0",
+        "shelljs": "^0.7.4",
+        "ts-loader": "^0.8.2",
+        "typescript": "^2.0.3",
+        "webpack": "^1.13.2",
+        "webpack-dev-server": "^1.15.1"
+    },
+    "dependencies": {
+        "phaser": "^2.6.2"
+    }
 }
