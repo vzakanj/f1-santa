@@ -11,6 +11,7 @@ import { KamikazeEnemy } from "../gameObjects/enemies/kamikazeEnemy";
 import { WobbleEnemy } from "../gameObjects/enemies/wobbleEnemy";
 import { BasePlayerBullet } from "../gameObjects/playerBullets/basePlayerBullet";
 import { RegularPlayerBullet } from "../gameObjects/playerBullets/regularPlayerBullet";
+import { BaseEnemyBullet } from "../gameObjects/enemyBullets/baseEnemyBullets";
 
 
 
@@ -21,11 +22,14 @@ export class Gameplay extends BaseState {
     player: Player;
     enemies: ExtendedArray<BaseEnemy>;
     playerBullets: ExtendedArray<BasePlayerBullet>;
+    enemyBullets: ExtendedArray<BaseEnemyBullet>;
     cooldowns = {
         'regularPlayerBullet': 0
     };
 
     create(): void {
+
+        this.gameObjectFactory.gamePlayState = this;
 
         // Background
         this.background = this.gameObjectFactory.createBackground();
@@ -40,13 +44,14 @@ export class Gameplay extends BaseState {
 
         // Bullets
         this.playerBullets = new ExtendedArray<BasePlayerBullet>();
+        this.enemyBullets = new ExtendedArray<BaseEnemyBullet>();
     }
 
     enemySpawner(): void {
 
         // Generic enemy spawner
 
-        this.game.time.events.loop(20000, () => {
+        this.game.time.events.loop(2000, () => {
             var spawnCount = 3;
             var toSpawn = this.enemies.takeWhere(spawnCount, x => !x.active && x instanceof GenericMovingEnemy);
             for (let e of toSpawn) {
@@ -58,7 +63,7 @@ export class Gameplay extends BaseState {
         }, this);
 
         // Kamikaze enemy spawner 
-        this.game.time.events.loop(30000, () => {
+        this.game.time.events.loop(4000, () => {
 
             var toSpawn = this.enemies.firstOrDefault(x => !x.active && x instanceof KamikazeEnemy);
             if (toSpawn == null) {
@@ -112,12 +117,12 @@ export class Gameplay extends BaseState {
         this.player.update();
 
         for (let enemy of this.enemies) {
-            if(!enemy.active) continue;
+            if (!enemy.active) continue;
             enemy.update(this.player);
             this.game.physics.arcade.overlap(this.player.sprite, enemy.sprite, this.playerEnemyCollision, null, this);
 
             for (let playerBullet of this.playerBullets) {
-                if(!playerBullet.active) continue;
+                if (!playerBullet.active) continue;
                 playerBullet.update(enemy);
                 this.game.physics.arcade.overlap(enemy.sprite, playerBullet.sprite, this.enemyBulletCollision, null, this);
             }

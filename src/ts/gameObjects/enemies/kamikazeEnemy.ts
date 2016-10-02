@@ -3,13 +3,14 @@ import { Player } from "../player";
 import { BaseEnemy } from "./baseEnemy";
 import { Constants } from "../../utilities/constants";
 import { MathHelper } from "../../utilities/mathHelper";
+import {Gameplay } from "../../gameStates/game";
 
 export class KamikazeEnemy extends BaseEnemy {
 
     speed: number;
     angleCorrection: number;
-    constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
-        super(game, sprite);
+    constructor(game: Phaser.Game, sprite: Phaser.Sprite, gamePlayState: Gameplay) {
+        super(game, sprite, gamePlayState);
         this.sprite.anchor = Constants.kamikazeEnemySettings["anchor"];
         this.angleCorrection = Constants.kamikazeEnemySettings["angleCorrection"];
     }
@@ -25,5 +26,9 @@ export class KamikazeEnemy extends BaseEnemy {
         }
         super.update(player);
         this.sprite.body.rotation = MathHelper.toDeg(this.game.physics.arcade.moveToObject(this.sprite, player.sprite, this.speed) + this.angleCorrection);
+    }
+
+      spawnBullet():void{
+        
     }
 }

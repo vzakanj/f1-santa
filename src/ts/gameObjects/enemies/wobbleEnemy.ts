@@ -3,12 +3,13 @@ import { Player } from "../Player";
 import { BaseEnemy } from "./baseEnemy";
 import { Constants } from "../../utilities/constants";
 import { MathHelper } from "../../utilities/mathHelper";
+import {Gameplay } from "../../gameStates/game";
 
 export class WobbleEnemy extends BaseEnemy {
 
     initialPosition: { x: number, y: number }
-    constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
-        super(game, sprite);
+    constructor(game: Phaser.Game, sprite: Phaser.Sprite, gamePlayState: Gameplay) {
+        super(game, sprite, gamePlayState);
     }
 
     resetEnemy(): void {
@@ -21,12 +22,15 @@ export class WobbleEnemy extends BaseEnemy {
     }
 
     update(player: Player) {
-        if(!this.active){
+        if (!this.active) {
             return;
         }
         super.update(player);
         var amount = Math.sin(this.sprite.position.y / 50) * 50;
         this.sprite.position.x = this.initialPosition.x + amount;
-        
+    }
+
+    spawnBullet(): void {
+
     }
 }

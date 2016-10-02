@@ -28,6 +28,12 @@ export class Constants {
 
     static bulletCooldowns: { [id: string]: number } = {
         'regularPlayerBullet': 0.08
+    }
 
+    static enemyBullets: { [id: string] : any } = {
+        'forward' : {
+            speed: 300
+        }
     }
 }
+

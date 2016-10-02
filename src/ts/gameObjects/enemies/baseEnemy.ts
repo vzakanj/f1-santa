@@ -2,6 +2,9 @@ import { BaseGameObject } from "../baseGameObject";
 import { Player } from "../player";
 import { Constants } from "../../utilities/constants";
 import { Shaders } from "../../utilities/shaders";
+import { BaseEnemyBullet } from "../enemyBullets/baseEnemyBullets";
+import { ExtendedArray, Predicate } from "../../utilities/extendedArray";
+import {Gameplay } from "../../gameStates/game";
 
 export abstract class BaseEnemy extends BaseGameObject {
 
@@ -10,16 +13,20 @@ export abstract class BaseEnemy extends BaseGameObject {
     private playHitAnimation: boolean;
     private filter: Phaser.Filter;
     private initalWhiteValue: number;
+    protected bulletSpawnerEvents: ExtendedArray<Phaser.TimerEvent>;
+    protected gamePlayState: Gameplay;
 
-    constructor(game: Phaser.Game, sprite: Phaser.Sprite) {
+    constructor(game: Phaser.Game, sprite:Phaser.Sprite , gamePlayState: Gameplay) {
         super(game, sprite);
-        this.resetEnemy();
+        this.gamePlayState = gamePlayState;
+        this.bulletSpawnerEvents = new ExtendedArray<Phaser.TimerEvent>();
         this.health = 100;
         this.damage = 5;
-        var shader = Shaders.createWhiteShader();
+        var shader = Shaders.whiteShaderData();
         this.filter = new Phaser.Filter(game, shader.uniforms, shader.text);
         this.sprite.filters = [this.filter];
         this.initalWhiteValue = 0.0;
+        this.resetEnemy();
     }
 
     public resetEnemy() {
@@ -28,11 +35,13 @@ export abstract class BaseEnemy extends BaseGameObject {
         this.health = 100;
         this.xStartPosition();
         this.yStartPosition();
+        this.spawnBullet();
     }
 
     public deactivateEnemy(): void {
         this.active = false;
         this.sprite.renderable = false;
+        this.removeBulletSpawns();
     }
 
     private xStartPosition(): void {
@@ -48,7 +57,6 @@ export abstract class BaseEnemy extends BaseGameObject {
         if (!this.active) {
             return;
         }
-
 
         if (this.playHitAnimation) {
             this.filter.uniforms["uWhiteAmount"].value -= this.game.time.physicsElapsed;
@@ -69,7 +77,15 @@ export abstract class BaseEnemy extends BaseGameObject {
     }
 
     public hit(): void {
+        if (!this.active) return;
         this.setWhiteAmount(1.0);
         this.playHitAnimation = true;
+    }
+
+    protected abstract spawnBullet(): void;
+    private removeBulletSpawns(): void {
+        for (var e of this.bulletSpawnerEvents) {
+            this.game.time.events.remove(e);
+        }
     }
 }
