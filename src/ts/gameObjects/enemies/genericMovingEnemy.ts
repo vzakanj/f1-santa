@@ -7,6 +7,8 @@ import { BulletTypes  } from "../../utilities/gameObjectFactory";
 
 export class GenericMovingEnemy extends BaseEnemy {
 
+    private BULLETS_TO_SPAWN = 10;
+
     constructor(game: Phaser.Game, sprite: Phaser.Sprite, gamePlayState: Gameplay) {
         super(game, sprite, gamePlayState);
     }
@@ -19,7 +21,22 @@ export class GenericMovingEnemy extends BaseEnemy {
 
     spawnBullet(): void {
         var e1 = this.game.time.events.loop(2000, function () {
-            this.gamePlayState.enemyBullets.concat(this.gamePlayState.gameObjectFactory.createEnemyBullet(BulletTypes.forward, this.sprite.x, this.sprite.y));
+            var bullets = this.gamePlayState.enemyBullets.takeWhere(10, x => x.active == false && x.getBulletType() == BulletTypes.forward);
+            var toSpawn = this.BULLETS_TO_SPAWN - bullets.length;
+            for (var i = 0; i < toSpawn; i++) {
+                var bullet = this.gamePlayState.gameObjectFactory.createEnemyBullet(BulletTypes.forward, this.sprite.x, this.sprite.y);
+                bullets.push(bullet);
+                this.gamePlayState.enemyBullets.push(bullet);
+            }
+            // Start position and at 10 bullets from that position, ( spread bullets )
+            var start = -100;
+            for (let b of bullets) {
+                b.position.x = this.position.x;
+                b.position.y = this.position.y;
+                b.active = true;
+                b.setVelocity(start, 200);
+                start += 25;
+            }
         }, this);
         this.bulletSpawnerEvents.push(e1);
     }

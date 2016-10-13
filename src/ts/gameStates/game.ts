@@ -119,14 +119,20 @@ export class Gameplay extends BaseState {
         for (let enemy of this.enemies) {
             if (!enemy.active) continue;
             enemy.update(this.player);
+            // Collide enemy with player
             this.game.physics.arcade.overlap(this.player.sprite, enemy.sprite, this.playerEnemyCollision, null, this);
 
             for (let playerBullet of this.playerBullets) {
                 if (!playerBullet.active) continue;
-                playerBullet.update(enemy);
+
+                // Could be an issue since this is called more times then neccessary           
+                playerBullet.update(enemy);                                                                     //<---------------- damn enemies refrences
+                // Collide enemies with player bullets
                 this.game.physics.arcade.overlap(enemy.sprite, playerBullet.sprite, this.enemyBulletCollision, null, this);
             }
         }
+
+        this.updateEnemyBullets();
 
         this.playerBulletSpawner();
     }
@@ -146,5 +152,11 @@ export class Gameplay extends BaseState {
             enemy.hit();
         }
         bullet.deactivateBullet();
+    }
+
+    private updateEnemyBullets(): void {
+        for (let bullet of this.enemyBullets) {
+            bullet.update();
+        }
     }
 }

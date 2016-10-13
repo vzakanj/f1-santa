@@ -77,15 +77,15 @@ export class GameObjectFactory {
         return new RegularPlayerBullet(this.game, this.createSprite('regularPlayerBullet', x, y, this.defaultGameObjectsScale));
     }
 
-    public createEnemyBullet(type: BulletTypes, x: number, y: number): ExtendedArray<BaseEnemyBullet> {
-        var bullets = new ExtendedArray<BaseEnemyBullet>();
-        switch (type) {
-            case BulletTypes.forward: {
-                bullets.push(new EnemyForwardMovingBullet(this.game, this.createSprite('regularPlayerBullet', x, y, this.defaultGameObjectsScale)));
-            }
-        }
+    public createEnemyBullet(type: BulletTypes, x: number, y: number): BaseEnemyBullet {
 
-        return bullets;
+        switch (type) {
+            case BulletTypes.forward:
+                return new EnemyForwardMovingBullet(this.game, this.createSprite('enemyBullet', x, y, this.defaultGameObjectsScale));
+            default:
+                return new EnemyForwardMovingBullet(this.game, this.createSprite('enemyBullet', x, y, this.defaultGameObjectsScale));
+
+        }
     }
 
     private gamePlayStateException() {
