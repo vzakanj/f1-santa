@@ -154,9 +154,15 @@ export class Gameplay extends BaseState {
         bullet.deactivateBullet();
     }
 
+    private enemyBulletPlayerCollision(bulletSprite: Phaser.Sprite, playerSprite: Phaser.Sprite): void {
+        var bullet = bulletSprite['object'];
+        bullet.deactivateBullet();
+    }
+
     private updateEnemyBullets(): void {
         for (let bullet of this.enemyBullets) {
             bullet.update();
+            this.game.physics.arcade.overlap(bullet.sprite, this.player.sprite, this.enemyBulletPlayerCollision, null, this);
         }
     }
 }
