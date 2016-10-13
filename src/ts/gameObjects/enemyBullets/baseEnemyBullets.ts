@@ -16,8 +16,19 @@ export abstract class BaseEnemyBullet extends BaseGameObject {
         this.sprite.body.velocity = new Phaser.Point(x,y);
     }
 
+    public setPosition(position:Phaser.Point): void{
+        this.sprite.position.x = position.x;
+        this.sprite.position.y = position.y;
+    }
+
     public update(): void {
         this.handleOutOfScreenBounds();
+    }
+
+    public activate(position: Phaser.Point, velocity: Phaser.Point): void{
+        this.active = true;
+        this.setPosition(position);
+        this.setVelocity(velocity.x, velocity.y);
     }
 
     private handleOutOfScreenBounds(): void {

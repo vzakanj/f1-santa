@@ -5,6 +5,7 @@ import { Shaders } from "../../utilities/shaders";
 import { BaseEnemyBullet } from "../enemyBullets/baseEnemyBullets";
 import { ExtendedArray, Predicate } from "../../utilities/extendedArray";
 import {Gameplay } from "../../gameStates/game";
+import { BulletTypes  } from "../../utilities/gameObjectFactory";
 
 export abstract class BaseEnemy extends BaseGameObject {
 
@@ -80,6 +81,10 @@ export abstract class BaseEnemy extends BaseGameObject {
         if (!this.active) return;
         this.setWhiteAmount(1.0);
         this.playHitAnimation = true;
+    }
+
+    protected takeInactiveBullets(take:number, type: BulletTypes): ExtendedArray<BaseEnemyBullet> {
+        return this.gamePlayState.enemyBullets.takeWhere(take, x => x.active == false && x.getBulletType() == type);
     }
 
     protected abstract spawnBullet(): void;

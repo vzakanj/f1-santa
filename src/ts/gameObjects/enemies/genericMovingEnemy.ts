@@ -21,7 +21,7 @@ export class GenericMovingEnemy extends BaseEnemy {
 
     spawnBullet(): void {
         var e1 = this.game.time.events.loop(2000, function () {
-            var bullets = this.gamePlayState.enemyBullets.takeWhere(10, x => x.active == false && x.getBulletType() == BulletTypes.forward);
+            var bullets = this.takeInactiveBullets(10, BulletTypes.forward);
             var toSpawn = this.BULLETS_TO_SPAWN - bullets.length;
             for (var i = 0; i < toSpawn; i++) {
                 var bullet = this.gamePlayState.gameObjectFactory.createEnemyBullet(BulletTypes.forward, this.sprite.x, this.sprite.y);
@@ -31,11 +31,7 @@ export class GenericMovingEnemy extends BaseEnemy {
             // Start position and at 10 bullets from that position, ( spread bullets )
             var start = -100;
             for (let b of bullets) {
-                b.position.x = this.position.x;
-                b.position.y = this.position.y;
-                b.active = true;
-                b.setVelocity(start, 200);
-                start += 25;
+                b.activate(this.position, new Phaser.Point(start += 25, 200));
             }
         }, this);
         this.bulletSpawnerEvents.push(e1);
