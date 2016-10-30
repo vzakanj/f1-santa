@@ -11,23 +11,23 @@ export abstract class BaseEnemy extends BaseGameObject {
 
     damage: number;
     health: number;
-    private playHitAnimation: boolean;
     private filter: Phaser.Filter;
     private initalWhiteValue: number;
-    protected bulletSpawnerEvents: ExtendedArray<Phaser.TimerEvent>;
     protected gamePlayState: Gameplay;
+    protected timeToSpawn: number;
+    protected spawnBulletTime: number;
 
     constructor(game: Phaser.Game, sprite:Phaser.Sprite , gamePlayState: Gameplay) {
         super(game, sprite);
         this.gamePlayState = gamePlayState;
-        this.bulletSpawnerEvents = new ExtendedArray<Phaser.TimerEvent>();
         this.health = 100;
+        this.timeToSpawn = 0;
         this.damage = 5;
-        var shader = Shaders.whiteShaderData();
-        this.filter = new Phaser.Filter(game, shader.uniforms, shader.text);
-        this.sprite.filters = [this.filter];
+        // Don't use shader, it's causing huge performance hit
         this.initalWhiteValue = 0.0;
         this.resetEnemy();
+        this.spawnBulletTime = 1000;
+        this.sprite.tint = 1.0 * 0xffffff;
     }
 
     public resetEnemy() {
@@ -42,7 +42,6 @@ export abstract class BaseEnemy extends BaseGameObject {
     public deactivateEnemy(): void {
         this.active = false;
         this.sprite.renderable = false;
-        this.removeBulletSpawns();
     }
 
     private xStartPosition(): void {
@@ -59,28 +58,23 @@ export abstract class BaseEnemy extends BaseGameObject {
             return;
         }
 
-        if (this.playHitAnimation) {
-            this.filter.uniforms["uWhiteAmount"].value -= this.game.time.physicsElapsed;
-            if (this.filter.uniforms["uWhiteAmount"].value < 0.0) {
-                this.filter.uniforms["uWhiteAmount"].value = 0.0;
-                this.playHitAnimation = false;
-            }
-        }
-
         if (this.sprite.position.y > this.game.height + this.sprite.height) {
             this.active = false;
+        }
+
+        this.timeToSpawn -= this.game.time.physicsElapsed;
+        if(this.timeToSpawn < 0){
+            this.spawnBullet();
+            this.timeToSpawn = this.spawnBulletTime;
         }
     }
 
     private setWhiteAmount(val: number): number {
-        this.filter.uniforms["uWhiteAmount"].value = val;
         return val;
     }
 
     public hit(): void {
         if (!this.active) return;
-        this.setWhiteAmount(1.0);
-        this.playHitAnimation = true;
     }
 
     protected takeInactiveBullets(take:number, type: BulletTypes): ExtendedArray<BaseEnemyBullet> {
@@ -88,9 +82,4 @@ export abstract class BaseEnemy extends BaseGameObject {
     }
 
     protected abstract spawnBullet(): void;
-    private removeBulletSpawns(): void {
-        for (var e of this.bulletSpawnerEvents) {
-            this.game.time.events.remove(e);
-        }
-    }
 }

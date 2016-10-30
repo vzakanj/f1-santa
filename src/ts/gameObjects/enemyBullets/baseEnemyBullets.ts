@@ -27,6 +27,7 @@ export abstract class BaseEnemyBullet extends BaseGameObject {
     }
 
     public update(): void {
+        if(!this.activate) return;
         this.handleOutOfScreenBounds();
     }
 
@@ -38,8 +39,8 @@ export abstract class BaseEnemyBullet extends BaseGameObject {
     }
 
     private handleOutOfScreenBounds(): void {
-        if (this.sprite.position.x < -100 || this.sprite.position.x + 100 > this.game.width
-            || this.sprite.position.y < -100 || this.sprite.position.y + 100 > this.game.height) {
+        if (this.sprite.position.x < -100 || this.sprite.position.x > this.game.width  + 100
+            || this.sprite.position.y < -100 || this.sprite.position.y> this.game.height  + 100 ) {
             this.active = false;
         }
     }

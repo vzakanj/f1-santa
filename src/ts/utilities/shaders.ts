@@ -2,30 +2,38 @@
 
 export class Shaders {
 
-    static whiteShaderData() {
+    static shader;
 
-        return {
-            text: ["precision mediump float;",
-                "varying vec2 vTextureCoord;",
-                "uniform sampler2D uSampler;",
-                "uniform float uWhiteAmount;",
+    static createWhiteShader(game:Phaser.Game){
 
-                "void main(void) {",
+        if(!this.shader){
+            var data = { 
+                text: [
+                    "precision mediump float;",
+                    "varying vec2 vTextureCoord;",
+                    "uniform sampler2D uSampler;",
+                    "uniform float uWhiteAmount;",
 
-                "vec4 texColor = texture2D(uSampler, vTextureCoord);",
-                "float white = 1.0 - uWhiteAmount;",
-                "if (texColor.a > 0.0 && white != 0.0) {",
-                "texColor = vec4(texColor.rgb / white, texColor.a);",
-                "}",
-                "gl_FragColor = texColor;",
-                "}"],
-            uniforms: {
-                uWhiteAmount: { type: '1f', value: 0.0 }
+                    "void main(void) {",
+
+                    "vec4 texColor = texture2D(uSampler, vTextureCoord);",
+                    "float white = 1.0 - uWhiteAmount;",
+                    "if (texColor.a > 0.0 && white != 0.0) {",
+                    "texColor = vec4(texColor.rgb / white, texColor.a);",
+                    "}",
+                    "gl_FragColor = texColor;",
+                    "}"
+                    ],
+                uniforms: {
+                    uWhiteAmount: { type: '1f', value: 0.0 }
+                }
             }
+            this.shader = new Phaser.Filter(game, data.uniforms, data.text);
         }
+        return this.shader;
     }
 
-
+/*
     static blurShaderData() {
         return {
             text: [
@@ -66,6 +74,6 @@ export class Shaders {
         // return this.blurShader;
         
         return new Phaser.Filter(game, this.blurShaderData().uniforms, this.blurShaderData().text);;
-    }
+    }*/
 }
 

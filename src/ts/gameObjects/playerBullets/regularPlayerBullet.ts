@@ -16,7 +16,7 @@ export class RegularPlayerBullet extends BasePlayerBullet {
         this.sprite.body.velocity.y = Constants.regularPlayerBullet["velocityY"];
     }
     
-    update(enemy:BaseEnemy): void{
-        super.update(enemy);
+    update(): void{
+        super.update();
     }
 }

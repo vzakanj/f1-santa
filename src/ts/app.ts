@@ -23,7 +23,7 @@ import { BaseState } from "./gameStates/baseState";
 
 class GameEngine extends Phaser.Game {
     constructor() {
-        super(Constants.gameBounds.x, Constants.gameBounds.y, Phaser.AUTO, 'content', null);
+        super(Constants.gameBounds.x, Constants.gameBounds.y, Phaser.AUTO, 'canvas', null);
         
         var gameObjectFactory = new GameObjectFactory(this);
 

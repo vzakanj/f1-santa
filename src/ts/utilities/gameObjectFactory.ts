@@ -77,13 +77,13 @@ export class GameObjectFactory {
         return new RegularPlayerBullet(this.game, this.createSprite('regularPlayerBullet', x, y, this.defaultGameObjectsScale));
     }
 
-    public createEnemyBullet(type: BulletTypes, x: number, y: number): BaseEnemyBullet {
+    public createEnemyBullet(type: BulletTypes, x: number, y: number, speed? :number): BaseEnemyBullet {
 
         switch (type) {
             case BulletTypes.forward:
-                return new EnemyForwardMovingBullet(this.game, this.createSprite('enemyBullet', x, y, this.defaultGameObjectsScale));
+                return new EnemyForwardMovingBullet(this.game, this.createSprite('enemyBullet', x, y, this.defaultGameObjectsScale), speed);
             default:
-                return new EnemyForwardMovingBullet(this.game, this.createSprite('enemyBullet', x, y, this.defaultGameObjectsScale));
+                return new EnemyForwardMovingBullet(this.game, this.createSprite('enemyBullet', x, y, this.defaultGameObjectsScale), speed);
 
         }
     }
